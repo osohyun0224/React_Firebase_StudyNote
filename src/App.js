@@ -3,9 +3,10 @@ import Home from './pages/home/Home'
 import Signup from './pages/signup/Signup';
 import Login from './pages/login/Login';
 import Nav from './components/Nav';
-
+import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {
+  const { isAuthReady, user } = useAuthContext();
   return (
     <div className="App">
       {isAuthReady ? (
