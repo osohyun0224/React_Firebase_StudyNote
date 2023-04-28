@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+import Home from './pages/home/Home'
+import Signup from './pages/signup/Signup';
+import Login from './pages/login/Login';
+import Nav from './components/Nav';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isAuthReady ? (
+        <BrowserRouter>
+        <Nav />
+        <Routes>
+          {/* replace : 속성값이 false라면 뒤로가기 눌렀을때 리다이렉트 이전의 url로 이동하는것이 가능하지만 true면 이동 불가 */}
+          <Route path="/" element={user ? <Home /> : <Navigate replace={true} to="/login" />}></Route>
+          <Route path="/login" element={!user ? <Login /> : <Navigate replace={true} to="/"/>}></Route>
+          <Route path="/signup" element={!user ? <Signup /> : <Navigate replace={true} to="/"/>}></Route>
+        </Routes>
+        </BrowserRouter>
+      ) : "Loading..."}
+    
     </div>
   );
 }
 
-export default App;
+export default App
