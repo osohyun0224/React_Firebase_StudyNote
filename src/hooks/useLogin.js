@@ -6,9 +6,9 @@ import { useAuthContext } from "./useAuthContext";
 
 export const useLogin = () => {
 
-    // 에러 정보를 저장합니다.
+
     const [error, setError] = useState(null);
-    // 서버와의 통신상태를 저장합니다.
+   
     const [isPending, setIsPending] = useState(false);
 
     const { dispatch } = useAuthContext();

@@ -29,23 +29,20 @@ const storeReducer = (state, action) => {
   }
 }
 
-// transaction 인자 : 컬렉션에 넣을거
+
 export const useFirestore = (transaction) => {
   const [response, dispatch] = useReducer(storeReducer, initState);
 
-  // 컬렉션의 레퍼런스 만들기.
-  // colRef: 우리가 만들 컬렉션의 참조.울기ㅏ 빠로 컬렉션을 만들지는 앟ㄴ지만 원하는 컬렉션의 참고를 요구하시만 해도 자동으로 해당 컬렉션을 생성해줌.
   const colRef = collection (appFireStore, transaction);
 
-  // 컬렉션에 문서를 추가
+
   const addDocument = async (doc) => {
     dispatch({ type: "isPending" });
 
     try {
         const createdTime = timeStamp.fromDate(new Date())
 
-        // docRef: 우리가 만들 문서의 참조입니다.
-        // addDoc: 컬렉션에 문서를 추가합니다.
+       
         const docRef = await addDoc(colRef, { ...doc, createdTime });
         dispatch({ type: "addDoc", payload: docRef });
 
@@ -53,7 +50,7 @@ export const useFirestore = (transaction) => {
         dispatch({ type: "error", payload: error.message });
     }
 }
-  // 컬렉션에 문서 제거
+
   const deleteDocument = async (id) => {
     dispatch({type:"isPending"});
 
@@ -65,7 +62,7 @@ export const useFirestore = (transaction) => {
     }
   }
 
-  // 기본 틀
+
   return {response , addDocument, deleteDocument};
 
 }
